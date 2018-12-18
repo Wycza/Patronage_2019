@@ -21,7 +21,8 @@ namespace Task1
                         FizzBuzz(fizzBuzzNumber);
                         break;
                     case 2:
-                        Console.WriteLine("Not yet implemented");
+                        UInt16 nestedLevel = AskForNumber(0, 5);
+                        DeepDive(nestedLevel);
                         break;
                     case 3:
                         Console.WriteLine("Not yet implemented");
@@ -89,11 +90,31 @@ namespace Task1
             {
                 Console.WriteLine("Buzz");
             }
+
         }
 
         static void DeepDive(UInt16 nestedLevel, string directoryName = "")
         {
-            Console.WriteLine("Not yet implemented");
+            if ((nestedLevel < 0) || (nestedLevel > 5))
+            {
+                throw new Exception("Number must be between 0 - 5");
+            }
+
+            if(String.IsNullOrEmpty(directoryName))
+            {
+                directoryName = Directory.GetCurrentDirectory();
+            }
+
+            if(nestedLevel > 0)
+            {
+                --nestedLevel;
+                string folderName = Path.Combine(directoryName, Guid.NewGuid().ToString());
+                Directory.CreateDirectory(folderName);
+                Console.WriteLine($"Created folder: {folderName}");
+
+                DeepDive(nestedLevel, folderName);
+            }
+            return;
         }
 
         static void DrownItDown(UInt16 number)
