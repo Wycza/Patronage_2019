@@ -8,6 +8,8 @@ namespace Task_1
         static void Main(string[] args)
         {
             int userAction = 0;
+            UInt16 selectedNumber;
+
             while (userAction != 4)
             {
                 PrintOptions();
@@ -17,15 +19,16 @@ namespace Task_1
                 switch (userAction)
                 {
                     case 1:
-                        UInt16 fizzBuzzNumber = AskForNumber(0, 1000);
-                        FizzBuzz(fizzBuzzNumber);
+                        selectedNumber = AskForNumber(0, 1000);
+                        FizzBuzz(selectedNumber);
                         break;
                     case 2:
-                        UInt16 nestedLevel = AskForNumber(0, 5);
-                        DeepDive(nestedLevel);
+                        selectedNumber = AskForNumber(0, 5);
+                        DeepDive(selectedNumber);
                         break;
                     case 3:
-                        Console.WriteLine("Not yet implemented");
+                        selectedNumber = AskForNumber(0, 5);
+                        DrownItDown(selectedNumber);
                         break;
                     case 4:
                         Exit();
@@ -47,6 +50,12 @@ namespace Task_1
             Console.Write("Select: ");
         }
 
+        /// <summary>
+        /// Ask user for a number between {min} and {max}.
+        /// </summary>
+        /// <param name="min">Lowest possible number</param>
+        /// <param name="max">Highest possible number</param>
+        /// <returns>Number chosen by user</returns>
         static UInt16 AskForNumber(int min, int max)
         {
             int userNumber;
@@ -71,6 +80,12 @@ namespace Task_1
             }
         }
 
+        /// <summary>
+        /// For multiples of three print "Fizz" instead of the number
+        /// and for the multiples of five print "Buzz".
+        /// For numbers which are multiples of both three and five print "FizzBuzz".
+        /// </summary>
+        /// <param name="number">Number to check</param>
         static void FizzBuzz(UInt16 number)
         {
             if ((number < 0) || (number > 1000))
@@ -93,26 +108,31 @@ namespace Task_1
 
         }
 
-        static void DeepDive(UInt16 nestedLevel, string directoryName = "")
+        /// <summary>
+        /// Method which creates nested directories using recurrence.
+        /// </summary>
+        /// <param name="nestingLevel">Level of nesting</param>
+        /// <param name="directoryName">Name of the directory created at current level of nesting</param>
+        static void DeepDive(UInt16 nestingLevel, string directoryName = "")
         {
-            if ((nestedLevel < 0) || (nestedLevel > 5))
+            if ((nestingLevel < 0) || (nestingLevel > 5))
             {
                 throw new Exception("Number must be between 0 - 5");
             }
 
-            if(String.IsNullOrEmpty(directoryName))
+            if (String.IsNullOrEmpty(directoryName))
             {
                 directoryName = Directory.GetCurrentDirectory();
             }
 
-            if(nestedLevel > 0)
+            if (nestingLevel > 0)
             {
-                --nestedLevel;
+                --nestingLevel;
                 string folderName = Path.Combine(directoryName, Guid.NewGuid().ToString());
                 Directory.CreateDirectory(folderName);
                 Console.WriteLine($"Created folder: {folderName}");
 
-                DeepDive(nestedLevel, folderName);
+                DeepDive(nestingLevel, folderName);
             }
             return;
         }
