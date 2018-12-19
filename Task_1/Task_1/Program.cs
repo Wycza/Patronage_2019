@@ -120,19 +120,26 @@ namespace Task_1
                 throw new Exception("Number must be between 0 - 5");
             }
 
-            if (String.IsNullOrEmpty(directoryName))
+            try
             {
-                directoryName = Directory.GetCurrentDirectory();
+                if (String.IsNullOrEmpty(directoryName))
+                {
+                    directoryName = Directory.GetCurrentDirectory();
+                }
+
+                if (nestingLevel > 0)
+                {
+                    --nestingLevel;
+                    string folderName = Path.Combine(directoryName, Guid.NewGuid().ToString());
+                    Directory.CreateDirectory(folderName);
+                    Console.WriteLine($"Created folder: {folderName}");
+
+                    DeepDive(nestingLevel, folderName);
+                }
             }
-
-            if (nestingLevel > 0)
+            catch (Exception e)
             {
-                --nestingLevel;
-                string folderName = Path.Combine(directoryName, Guid.NewGuid().ToString());
-                Directory.CreateDirectory(folderName);
-                Console.WriteLine($"Created folder: {folderName}");
-
-                DeepDive(nestingLevel, folderName);
+                throw e;
             }
             return;
         }
