@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Task_1_Extra.Application.FizzBuzzs.Queries;
+using Task_1_Extra.Application.Interfaces;
+using Task_1_Extra.Application.Services;
 using Task_1_Extra.Middlewares;
 
 namespace Task_1_Extra
@@ -25,6 +27,7 @@ namespace Task_1_Extra
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IMockioService, MockioService>();
             services.AddMediatR(typeof(FizzBuzzQueryHandler).Assembly);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
