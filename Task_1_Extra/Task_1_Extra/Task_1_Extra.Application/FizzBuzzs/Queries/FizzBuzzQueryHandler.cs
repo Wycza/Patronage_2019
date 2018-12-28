@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Task_1_Extra.Application.Exceptions;
 
 namespace Task_1_Extra.Application.FizzBuzzs.Queries
 {
@@ -13,7 +13,7 @@ namespace Task_1_Extra.Application.FizzBuzzs.Queries
 
             if ((number < 0) || (number > 1000))
             {
-                throw new Exception("Number must be between 0 - 1000");
+                throw new FizzBuzzException(0, 1000);
             }
 
             if ((number % 2 == 0) && (number % 3 == 0))
