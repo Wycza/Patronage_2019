@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Task_1_Extra.Application.FizzBuzzs.Queries;
-using Task_1_Extra.Middleware;
+using Task_1_Extra.Middlewares;
 
 namespace Task_1_Extra
 {
@@ -58,6 +58,7 @@ namespace Task_1_Extra
             {
                 app.UseHsts();
             }
+            app.UseMiddleware<LoggingMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseSwagger();

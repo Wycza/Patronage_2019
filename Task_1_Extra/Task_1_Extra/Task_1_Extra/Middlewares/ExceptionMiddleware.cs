@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Task_1_Extra.Application.Exceptions;
 
-namespace Task_1_Extra.Middleware
+namespace Task_1_Extra.Middlewares
 {
     public class ExceptionMiddleware
     {
