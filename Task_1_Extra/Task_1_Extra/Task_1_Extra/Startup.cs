@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -12,6 +13,7 @@ using Task_1_Extra.Application.FizzBuzzs.Queries;
 using Task_1_Extra.Application.Interfaces;
 using Task_1_Extra.Application.Services;
 using Task_1_Extra.Middlewares;
+using Task_1_Extra.Persistence;
 
 namespace Task_1_Extra
 {
@@ -27,13 +29,19 @@ namespace Task_1_Extra
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Task1Context>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Task1Database"),
+                    x => x.MigrationsAssembly(nameof(Task_1_Extra))
+                ));
+
             services.AddTransient<IMockioService, MockioService>();
             services.AddMediatR(typeof(FizzBuzzQueryHandler).Assembly);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info {
+                c.SwaggerDoc("v1", new Info
+                {
                     Title = "Patronage Task 1 API",
                     Version = "v1",
                     Contact = new Contact

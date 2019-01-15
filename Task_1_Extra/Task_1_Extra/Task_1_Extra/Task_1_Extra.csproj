@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Task_1_Extra.Application\Task_1_Extra.Application.csproj" />
+    <ProjectReference Include="..\Task_1_Extra.Persistence\Task_1_Extra.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
