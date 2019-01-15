@@ -4,6 +4,7 @@ using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Task_1_Extra.Application.FizzBuzzs.Queries;
 using Task_1_Extra.Application.Interfaces;
 using Task_1_Extra.Application.Services;
+using Task_1_Extra.Domain.Entities;
 using Task_1_Extra.Middlewares;
 using Task_1_Extra.Persistence;
 
@@ -33,6 +35,25 @@ namespace Task_1_Extra
                 options.UseSqlServer(Configuration.GetConnectionString("Task1Database"),
                     x => x.MigrationsAssembly(nameof(Task_1_Extra))
                 ));
+
+            services.AddDefaultIdentity<AppUser>().AddEntityFrameworkStores<Task1Context>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.RequireUniqueEmail = true;
+            });
 
             services.AddTransient<IMockioService, MockioService>();
             services.AddMediatR(typeof(FizzBuzzQueryHandler).Assembly);
