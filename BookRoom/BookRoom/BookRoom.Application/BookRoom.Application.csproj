@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!--<Import Project="..\BookRoom.CodeAnalysis.targets" />-->
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>BookRoom.Application</AssemblyName>
+    <RootNamespace>BookRoom.Application</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="FluentValidation" Version="8.1.2" />
+    <PackageReference Include="MediatR" Version="5.1.0" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookRoom.Domain\BookRoom.Domain.csproj" />
+    <ProjectReference Include="..\BookRoom.Persistence\BookRoom.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

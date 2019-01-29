@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!--<Import Project="..\BookRoom.CodeAnalysis.targets" />-->
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>BookRoom.Domain</AssemblyName>
+    <RootNamespace>BookRoom.Domain</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+</Project>

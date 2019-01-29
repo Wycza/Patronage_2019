@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!--<Import Project="..\BookRoom.CodeAnalysis.targets" />-->
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>BookRoom.Common</AssemblyName>
+    <RootNamespace>BookRoom.Common</RootNamespace>
+  </PropertyGroup>
+</Project>
