@@ -18,7 +18,6 @@ using BookRoom.WebUI.Filters;
 using NSwag.AspNetCore;
 using System.Reflection;
 using BookRoom.Application.Rooms.Commands.CreateRoom;
-using BookRoom.Application.Rooms.Commands.DeleteRoom;
 
 namespace BookRoom.WebUI
 {
