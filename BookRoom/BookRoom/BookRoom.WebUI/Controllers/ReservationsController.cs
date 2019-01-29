@@ -20,7 +20,7 @@ namespace BookRoom.WebUI.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpPut("Room/{id}/reservations")]
+        [HttpPut("reservations/{id}")]
         [Description("Update reservation details")]
         public async Task<IActionResult> UpdateReservation([FromRoute] string id, [FromBody] UpdateReservationCommand command)
         {
@@ -29,7 +29,7 @@ namespace BookRoom.WebUI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("Room/{id}/reservations")]
+        [HttpDelete("reservations/{id}")]
         [Description("Delete reservation")]
         public async Task<IActionResult> DeleteReservation([FromRoute] string id)
         {
