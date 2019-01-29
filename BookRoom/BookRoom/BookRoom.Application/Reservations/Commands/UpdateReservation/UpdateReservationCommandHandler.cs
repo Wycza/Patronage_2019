@@ -1,4 +1,6 @@
 ﻿using BookRoom.Application.Exceptions;
+using BookRoom.Application.Interfaces;
+using BookRoom.Application.Notifications.Models;
 using BookRoom.Domain.Entities;
 using BookRoom.Persistence;
 using MediatR;
@@ -10,10 +12,12 @@ namespace BookRoom.Application.Reservations.Commands.UpdateReservation
     public class UpdateReservationCommandHandler : IRequestHandler<UpdateReservationCommand, Unit>
     {
         private readonly BookRoomDbContext _context;
+        private readonly INotificationService _notificationService;
 
-        public UpdateReservationCommandHandler(BookRoomDbContext context)
+        public UpdateReservationCommandHandler(BookRoomDbContext context, INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         public async Task<Unit> Handle(UpdateReservationCommand request, CancellationToken cancellationToken)
@@ -29,6 +33,13 @@ namespace BookRoom.Application.Reservations.Commands.UpdateReservation
             reservation.EndTime = request.EndTime;
 
             await _context.SaveChangesAsync(cancellationToken);
+
+            await _notificationService.SendAsync(new Message
+            {
+                To = "patronage.zadanie3@gmail.com",
+                Subject = $"Updated reservation of room {reservation.RoomId}",
+                Body = $"Successfuly updated reservation {reservation.ReservationId} of room {reservation.RoomId}"
+            });
 
             return Unit.Value;
         }
